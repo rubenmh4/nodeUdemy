@@ -1,13 +1,19 @@
-const fs = require('fs')
+
+import { yarg } from "./config/plugins/yargs.plugin"
+import { ServerApp } from "./presentation/server-app";
 
 
-let message :string = ''
 
+//este se ejecuta automaticamente, porque es una funcion auto invocada
 
+(async() => {
+    await main()
+    console.log('Ejecutado')
+})();
 
-for (let index = 1; index < 10; index++) {
-    message += `5 x ${index} = ${5*index} \n`
-    
+async function main() {
+    console.log(yarg)
+    const {b:base ,l:limit, s:showTable , n:fileName,d:fileDestination} = yarg;
+
+    ServerApp.run({base, limit, showTable,fileName,fileDestination})
 }
-console.log(message)
-fs.writeFileSync('tabla5.txt',message)
